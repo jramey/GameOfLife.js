@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Game Of Life</title>
+    <link rel="stylesheet" href="gameOfLife.css">
+
+    <script src="gameOfLife.js"></script>
+    <script src="jquery-2.0.3.min.js"></script>    
+    <script type ="text/javascript">
+        var seed = [];
+
+        for (var i = 0; i < 20; i++) {
+            seed[i] = [];
+            for (var j = 0; j < 20; j++) {
+                seed[i][j] = Math.round((Math.random() * 1));
+            }
+        }
+
+        var game = new GameOfLife(seed);
+
+        $(document).ready(function () {
+            setInterval(renderHtml, 250);
+        });
+
+        function renderHtml() {
+            var grid = game.tick();
+            var html = "<table> ";
+
+            for (var i = 0; i < grid.length; i++) {
+                html += "<tr> ";
+                for (var j = 0; j < grid.length; j++) {
+                    if (grid[i][j] == 1)
+                        html += "<td class=" + "\"live\"" + "></td> ";
+                    else
+                        html += "<td class=" + "\"dead\"" + "></td> ";
+                }
+
+                html += "</tr> ";
+            }
+
+            html += "</table>";
+
+            $("div.table").html(html);
+        }
+    </script>
+</head>
+<body>  
+    <div class="table">
+    </div>
+</body>
+</html>
